@@ -27,8 +27,9 @@ namespace MultiSearch.Domain.Services
 		{
 			var searches = new List<ISearchEngine>()
 			{
-				// new GoogleSearch(),
+				new GoogleSearch(),
 				new YandexSearch(),
+				new BingSearch(),
 			};
 
 			var responses = new List<Tuple<string, ISearchEngine>>(searches.Count);

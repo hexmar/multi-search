@@ -28,7 +28,7 @@ namespace MultiSearch.Domain.Models.SearchEngines
 		{
 			var htmlDoc = new HtmlDocument();
 			htmlDoc.LoadHtml(data);
-			var results = htmlDoc.DocumentNode.SelectNodes(".//*[@class=\"rc\"]").ToList();
+			var results = htmlDoc.DocumentNode.SelectNodes(".//*[@class=\"rc\"]");
 			
 			var mappedResults = results.Select((result, index) =>
 			{

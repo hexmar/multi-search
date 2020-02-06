@@ -29,8 +29,7 @@ namespace MultiSearch.Domain.Models.SearchEngines
 			var htmlDoc = new HtmlDocument();
 			htmlDoc.LoadHtml(data);
 			var results = htmlDoc.DocumentNode
-				.SelectNodes(".//a[@class=\"link link_theme_normal organic__url link_cropped_no i-bem\"]")
-				.ToList();
+				.SelectNodes(".//a[@class=\"link link_theme_normal organic__url link_cropped_no i-bem\"]");
 
 			var mappedResults = results.Select((result, index) =>
 			{
