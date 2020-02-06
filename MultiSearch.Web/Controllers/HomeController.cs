@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MultiSearch.Domain.Services;
-using MultiSearch.Models;
+using MultiSearch.Web.Models;
 
 namespace MultiSearch.Controllers
 {
@@ -21,10 +21,21 @@ namespace MultiSearch.Controllers
             _searchService = searchService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string query)
         {
-            var result = await _searchService.Search("weather");
-            return View();
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return View();
+            }
+
+            var result = await _searchService.Search(query);
+            var model = new SearchResultsViewModel
+            {
+                SearchResults = result,
+                Query = query,
+            };
+
+            return View("~/Views/Home/SearchResults.cshtml", model);
         }
 
         public IActionResult Privacy()

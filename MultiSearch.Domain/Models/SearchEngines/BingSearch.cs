@@ -31,7 +31,12 @@ namespace MultiSearch.Domain.Models.SearchEngines
 		{
 			var htmlDoc = new HtmlDocument();
 			htmlDoc.LoadHtml(data);
-			var nodes = htmlDoc.DocumentNode.SelectNodes(".//li[@class=\"b_algo\"]/div/h2/a");
+			var nodes = htmlDoc.DocumentNode.SelectNodes(".//li[@class=\"b_algo\"]//h2/a");
+
+			if (nodes == null)
+			{
+				return new List<SearchResultItem>();
+			}
 
 			var mappedResults = nodes.Select((node, index) =>
 			{

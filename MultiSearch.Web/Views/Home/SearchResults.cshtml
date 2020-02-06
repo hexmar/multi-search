@@ -1,0 +1,33 @@
+﻿@model SearchResultsViewModel
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MultiSearch</title>
+    <link rel="stylesheet" href="~/css/searchResults.css" />
+</head>
+<body>
+    <header>
+        <p>@Model.SearchResults.FirstOrDefault()?.ServerLink</p>
+        <form method="get">
+            <input type="text" name="query" value="@Model.Query" />
+            <button type="submit">Поиск</button>
+        </form>
+    </header>
+    <main>
+        <ol>
+            @{ 
+                foreach (var result in Model.SearchResults.OrderBy(r => r.Position))
+                {
+                    <li>
+                        <a href="@result.Link" target="_blank">@result.Title</a>
+                    </li>
+                }
+            }
+        </ol>
+    </main>
+</body>
+</html>
+

@@ -28,7 +28,7 @@ namespace MultiSearch.Domain.Services
 			var searches = new List<ISearchEngine>()
 			{
 				new GoogleSearch(),
-				new YandexSearch(),
+				//new YandexSearch(),
 				new BingSearch(),
 			};
 

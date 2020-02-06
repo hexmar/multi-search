@@ -1,6 +1,6 @@
 using System;
 
-namespace MultiSearch.Models
+namespace MultiSearch.Web.Models
 {
     public class ErrorViewModel
     {

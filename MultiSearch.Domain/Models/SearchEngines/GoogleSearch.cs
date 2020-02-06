@@ -29,14 +29,19 @@ namespace MultiSearch.Domain.Models.SearchEngines
 			var htmlDoc = new HtmlDocument();
 			htmlDoc.LoadHtml(data);
 			var results = htmlDoc.DocumentNode.SelectNodes(".//*[@class=\"rc\"]");
-			
+
+			if (results == null)
+			{
+				return new List<SearchResultItem>();
+			}
+
 			var mappedResults = results.Select((result, index) =>
 			{
 				var linkElement = result.SelectSingleNode(".//*[@class=\"r\"]/a");
 				var link = linkElement.Attributes["href"].Value;
 
 				var titleElement = linkElement.SelectSingleNode(".//h3");
-				var title = titleElement.InnerText;
+				var title = HttpUtility.HtmlDecode(titleElement.InnerText);
 
 				return new SearchResultItem
 				{

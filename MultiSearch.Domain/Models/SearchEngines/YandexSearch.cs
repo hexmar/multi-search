@@ -31,12 +31,17 @@ namespace MultiSearch.Domain.Models.SearchEngines
 			var results = htmlDoc.DocumentNode
 				.SelectNodes(".//a[@class=\"link link_theme_normal organic__url link_cropped_no i-bem\"]");
 
+			if (results == null)
+			{
+				return new List<SearchResultItem>();
+			}
+
 			var mappedResults = results.Select((result, index) =>
 			{
 				var link = result.Attributes["href"].Value;
 
 				var titleElement = result.SelectSingleNode("./*[@class=\"organic__url-text\"]");
-				var title = titleElement.InnerText;
+				var title = HttpUtility.HtmlDecode(titleElement.InnerText);
 
 				return new SearchResultItem
 				{
