@@ -27,8 +27,8 @@ namespace MultiSearch.Domain.Services
 		{
 			var searches = new List<ISearchEngine>()
 			{
-				new GoogleSearch(),
-				
+				// new GoogleSearch(),
+				new YandexSearch(),
 			};
 
 			var responses = new List<Tuple<string, ISearchEngine>>(searches.Count);
@@ -53,14 +53,13 @@ namespace MultiSearch.Domain.Services
 					thread.thread.Start(thread.args);
 				}
 
-				fianlBarrier.SignalAndWait();
-
-				// Don't know why but thread is working and has state Unstarted
-				// so this isn't work
+				// Don't know why but thread works and has state Unstarted so this isn't work
 				/*foreach (var thread in threads)
 				{
 					thread.thread.Join();
 				}*/
+
+				fianlBarrier.SignalAndWait();
 			}
 
 			if (responses[0] == null)
@@ -68,6 +67,15 @@ namespace MultiSearch.Domain.Services
 				return new List<SearchResultItem>();
 			}
 			var result = responses[0].Item2.ParseData(responses[0].Item1);
+
+			if (result.Count() > 10)
+			{
+				result = result.Take(10);
+			}
+			foreach (var searchResult in result)
+			{
+				searchResult.Request = query;
+			}
 
 			// TODO: Push to DB
 
@@ -86,6 +94,7 @@ namespace MultiSearch.Domain.Services
 				lock (searchTaskArgs.barrier)
 				{
 					searchTaskArgs.responses.Add(Tuple.Create(response, searchTaskArgs.searchEngine));
+
 					if (searchTaskArgs.responses.Count == 1)
 					{
 						searchTaskArgs.finalBarrier.SignalAndWait();

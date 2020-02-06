@@ -13,9 +13,12 @@ namespace MultiSearch.Domain.Models.SearchEngines
 	{
 		public async Task<string> GetDataAsync(string query)
 		{
-			var client = new HttpClient();
-			client.DefaultRequestHeaders.Add("user-agent", "Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0");
-			var response = await client.GetAsync("https://google.ru/search?q=" + HttpUtility.UrlEncode(query));
+			using var client = new HttpClient();
+			client.DefaultRequestHeaders.Add(
+				"user-agent",
+				"Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:73.0) Gecko/20100101 Firefox/73.0");
+			var response = await client.GetAsync(
+				"https://google.ru/search?q=" + HttpUtility.UrlEncode(query));
 
 			var content = await response.Content.ReadAsStringAsync();
 			return content;
@@ -34,8 +37,6 @@ namespace MultiSearch.Domain.Models.SearchEngines
 
 				var titleElement = linkElement.SelectSingleNode(".//h3");
 				var title = titleElement.InnerText;
-
-				var descriptionElement = result.SelectSingleNode(".//*[@class=\"st\"]");
 
 				return new SearchResultItem
 				{
