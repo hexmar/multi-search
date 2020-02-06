@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MultiSearch.Domain.Models
 {
 	public interface ISearchEngine
 	{
-		string GetData(string request);
+		Task<string> GetDataAsync(string request);
 		IEnumerable<SearchResultItem> ParseData(string data);
 	}
 }

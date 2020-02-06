@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace MultiSearch.Domain.Models
+namespace MultiSearch.Domain.Models.SearchEngines
 {
-	public class GoogleSearch : ISearchEngine
+	public class BingSearch : ISearchEngine
 	{
-		public string GetData(string request)
+		public Task<string> GetDataAsync(string request)
 		{
 			throw new NotImplementedException();
 		}
