@@ -1,15 +1,25 @@
-﻿main {
+﻿@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+main {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    font-family: 'Roboto', Arial, sans-serif;
+    color: #212121;
 }
 
 form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
+    width: 800px;
+    margin-top: -150px;
+}
+
+form p {
+    font-size: 60px;
+    margin: 30px 0px;
 }
 
 form div {
@@ -17,10 +27,49 @@ form div {
     width: 100%;
 }
 
-input {
-    flex-grow: 1;
+form div:hover,
+form div:not(:hover) input:focus,
+form div:not(:hover) input:focus + button {
+    box-shadow: 0 2px 6px 0 rgba(32, 33, 36, 0.28);
 }
 
-button {
+form a {
+    margin: 20px 0px;
+    box-shadow: 0 1px 6px 0 rgba(40, 53, 147, 0.28);
+    padding: 10px;
+    border-radius: 4px;
+
+    text-decoration: none;
+}
+
+form a:visited {
+    color: #616161;
+}
+
+form div input {
+    flex-grow: 1;
+    height: 44px;
+    width: 582px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 15px;
+
+    border: 1px solid #283593;
+    border-right: none;
+    border-radius: 4px 0px 0px 4px;
+
+}
+
+form div button {
     flex-shrink: 0;
+    width: 90px;
+    height: 44px;
+    border-left: none;
+    font-size: 15px;
+    color: #fff;
+    font-family: 'Roboto', Arial, sans-serif;
+
+    border: 1px solid #283593;
+    border-radius: 0px 4px 4px 0px;
+    background-color: #283593
 }
