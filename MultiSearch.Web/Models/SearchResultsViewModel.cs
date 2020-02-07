@@ -1,8 +1,5 @@
 ﻿using MultiSearch.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MultiSearch.Web.Models
 {
@@ -10,5 +7,7 @@ namespace MultiSearch.Web.Models
 	{
 		public IEnumerable<SearchResultItem> SearchResults { get; set; }
 		public string Query { get; set; }
+		public string SearchEngine { get; set; }
+		public bool LocalSearch { get; set; }
 	}
 }

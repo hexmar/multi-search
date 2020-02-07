@@ -10,31 +10,25 @@ namespace MultiSearch.Domain.Services
 {
 	public class SearchService : ISearchService
 	{
-		/*
-		 * Gets all ISearchEngine
-		 * Creates threads for each
-		 * Creates Barrier
-		 * Starts them
-		 * ???
-		 * First return response result with ISearchEngine
-		 * Parse response with ISearchEngine
-		 * Result should be List<SearchResultItem>
-		 * Put results to DB
-		 * Return results
-		 */
+		private readonly ISearchResultRepository _repository;
 
-		public async Task<IEnumerable<SearchResultItem>> Search(string query)
+		public SearchService(ISearchResultRepository repository)
+		{
+			_repository = repository;
+		}
+
+		public async Task<IEnumerable<SearchResultItem>> SearchAsync(string query)
 		{
 			var searches = new List<ISearchEngine>()
 			{
 				new GoogleSearch(),
-				//new YandexSearch(),
+				new YandexSearch(),
 				new BingSearch(),
 			};
 
 			var responses = new List<Tuple<string, ISearchEngine>>(searches.Count);
 			using var barrier = new Barrier(searches.Count);
-			using var fianlBarrier = new Barrier(2);
+			using var finalBarrier = new Barrier(2);
 			{
 				var threads = searches.Select(se => new
 				{
@@ -45,7 +39,7 @@ namespace MultiSearch.Domain.Services
 						query = query,
 						barrier = barrier,
 						responses = responses,
-						finalBarrier = fianlBarrier,
+						finalBarrier = finalBarrier,
 					},
 				});
 
@@ -60,7 +54,7 @@ namespace MultiSearch.Domain.Services
 					thread.thread.Join();
 				}*/
 
-				fianlBarrier.SignalAndWait();
+				finalBarrier.SignalAndWait();
 			}
 
 			if (responses[0] == null)
@@ -78,9 +72,25 @@ namespace MultiSearch.Domain.Services
 				searchResult.Request = query;
 			}
 
-			// TODO: Push to DB
+			result = await _repository.InsertResultsAsync(result);
 
 			return result;
+		}
+
+		public IEnumerable<SearchResultItem> SearchLocal(string query)
+		{
+			var results = _repository.GetAll().Where(result => result.Title.Contains(query)).ToList();
+			var reducedResults = results.Aggregate(new List<SearchResultItem>(), (reduced, result) =>
+			{
+				if (reduced.All(r => r.Link != result.Link))
+				{
+					reduced.Add(result);
+				}
+
+				return reduced;
+			}).OrderBy(r => r.Position).ToList();
+
+			return reducedResults;
 		}
 
 		private static void StartSearchEngine(object args)

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IndexViewModel
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
@@ -16,6 +18,16 @@
                 <input type="text" name="query" />
                 <button type="submit">Поиск</button>
             </div>
+            @{
+                if (Model.LocalSearch)
+                {
+                    <a href="/">Поиск в поисковых системах</a>
+                }
+                else
+                {
+                    <a href="/home/local">Поиск в базе данных</a>
+                }
+            }
         </form>
     </main>
 </body>

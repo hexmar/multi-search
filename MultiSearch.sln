@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Web", "MultiSearch.Web\MultiSearch.Web.csproj", "{9FBAB9CD-46EC-4621-85F8-F489CE055438}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSearch.Domain", "MultiSearch.Domain\MultiSearch.Domain.csproj", "{19859D6B-F552-4509-8AF9-C08195D4A17C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiSearch.Domain", "MultiSearch.Domain\MultiSearch.Domain.csproj", "{19859D6B-F552-4509-8AF9-C08195D4A17C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiSearch.Repository", "MultiSearch.Repository\MultiSearch.Repository.csproj", "{3B241492-D68C-46B7-8F59-C13A7346DF37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{19859D6B-F552-4509-8AF9-C08195D4A17C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19859D6B-F552-4509-8AF9-C08195D4A17C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19859D6B-F552-4509-8AF9-C08195D4A17C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B241492-D68C-46B7-8F59-C13A7346DF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B241492-D68C-46B7-8F59-C13A7346DF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B241492-D68C-46B7-8F59-C13A7346DF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B241492-D68C-46B7-8F59-C13A7346DF37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
