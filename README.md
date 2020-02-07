@@ -6,6 +6,9 @@
 класс с имплементацией интерфейса `ISearchEngine`. А затем создать экземпляр этого класса в массиве `searches` 
 в классе `SearchService`.
 
+- `ISearchEngine.GetDataAsync` осуществляет получение данных из поисковой системы в формате html.
+- `ISearchEngine.ParseData` осуществляет преобразование сырых данных в доменные модели.
+
 Для запуска приложения должен быть установлен LocalDB. Либо, если установлен SQL Server, необходимо изменить 
 connection string в `appsettings.json`.
 
